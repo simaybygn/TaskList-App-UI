@@ -1,51 +1,65 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import {ActivitiesData, ContactDetailsData,CourseData,DataType,  SkıllsData} from '../service/service';
-declare var $: any;
-import { TreeControl } from '@angular/cdk/tree';
-import { CdkTree } from '@angular/cdk/tree';
-import { CdkTreeNode } from '@angular/cdk/tree';
-import { CdkTreeNodeDef } from '@angular/cdk/tree';
-import { CdkTreeNodeOutlet } from '@angular/cdk/tree';
-import { CdkTreeNodePadding } from '@angular/cdk/tree';
-import { CdkTreeNodeToggle } from '@angular/cdk/tree';
-import { CollectionViewer } from '@angular/cdk/collections';
-import { _Constructor } from '@angular/material/core';
-import { DataSource } from '@angular/cdk/collections';
-import {FlatTreeControl} from '@angular/cdk/tree';
-import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component } from '@angular/core';
+import { TaskListResponseModel } from 'src/app/service/task-list.page.model';
+import { TaskListService } from 'src/app/service/task-list.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  templateUrl: './app.component.html'
 })
 
-export class AppComponent implements OnInit{
-
-  dataSource = new MatTableDataSource(ActivitiesData);
-  contactDatas: DataType[] = ContactDetailsData;
-
-  displayedColumns: string[] = ['adres', 'pozisyon','firma','aciklama','tarih'];
-  panelOpenState = false;
-  skillsDatas:DataType[]=SkıllsData;
-  courseDatas:DataType[]=CourseData;
-  isVisibility : boolean = false;
-  isLinear = false;
-    courseClick = () => {
-    this.isVisibility = ! this.isVisibility;
+export class AppComponent{
+newTaskDescription: string = '';
+  currentFilter: 'all' | 'active' | 'completed' = 'all';
+  taskList!: TaskListResponseModel[]
+  
+  constructor(protected taskListService: TaskListService) {
+     this.getAllTaskList();
   }
-  constructor(){ }
-  ngOnInit(): void {
-     this.contactDatas = ContactDetailsData;
 
-     this.skillsDatas=SkıllsData;
-     
+ setFilter(filter: 'all' | 'active' | 'completed') {
+  this.currentFilter = filter;
+  if(this.currentFilter === 'all') {
+    this.getAllTaskList();
+  }else{
+      this.getTaskListByIsCompletedStatus(this.currentFilter === 'completed');
   }
- 
 
+}
+
+ getAllTaskList():void{
+    this.taskList=[];
+    this.taskListService.getAllTaskList().subscribe((res)=>{
+      this.taskList.push(...res);
+    })
   }
+
+  getTaskListByIsCompletedStatus(isCompleted:boolean):void{
+    this.taskList=[];
+    this.taskListService.getTaskListByIsCompletedStatus(isCompleted).subscribe((res)=>{
+      this.taskList.push(...res);
+    })
+  }
+
+  createTask(): void {
+     if (!this.newTaskDescription.trim()) return;  // Boşsa işlem yapma
+    this.taskListService.createTask({
+      description: this.newTaskDescription,
+      isCompleted: false
+    }).subscribe((res)=>{
+      if(res)
+       {
+         this.newTaskDescription = ''; // Inputu temizle
+        this.getAllTaskList();
+       }
+    })
+  }
+
+  onTaskChanged(event: boolean): void {
+    if(event) {
+      this.getAllTaskList();
+    }
+}
+}
   
    
 

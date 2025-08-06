@@ -1,298 +1,58 @@
-<header>
-  <mat-toolbar role="heading" class="header-tool" >
-    <mat-toolbar-row>
-      <span class="spacer"></span>
-    </mat-toolbar-row>
-  </mat-toolbar>
+<header class="bg-black py-4 text-center sticky top-0 z-20">
+  <h1 class="text-2xl font-bold text-white">Task List</h1>
 </header>
-  <mat-tab-group mat-align-tabs="center">
-    <mat-tab label="INFORMATION">
-      <mat-grid-list  cols="2"  >
-        <mat-grid-tile class="mat-grid-tile-1" id="tile-1"
-            [colspan]=1
-            [rowspan]=1>
-            <mat-card class="tanıtım-card">
-              <mat-card-title-group>
-                <mat-card-title>Simay BAYGIN</mat-card-title>
-                <mat-card-subtitle>Student</mat-card-subtitle>
-                <img mat-card-md-image src="../../images/simay.png" >
-              </mat-card-title-group>
-              <mat-card-content class="info-p" >
-                <p>Hello, welcome to my website. I am Simay, you can get general information about me from other parts of the site.
-                  My dream website is very different from the website you are currently visiting and I will start working to realize it, I started to make this website in my spare time while working.
-                  .The biggest purpose in making this website was to make a project where I could reinforce the information I learned.
-                  I am trying to gain experience with Angular material and I used angular material in the construction of this website. Project codes are in my github account.
-                  I will be very happy with your feedback, I will be waiting for your feedback from my linkedin account or my e-mail :)</p>
-              </mat-card-content>
-            </mat-card>
-        </mat-grid-tile >
-        <mat-grid-tile class="mat-grid-tile-1" id="tile-2"
-        [colspan]=1  
-        [rowspan]=1 
-        *ngFor="let data of contactDatas">
-           <mat-card class="contact-card">
-          <mat-card-title>Contact Details</mat-card-title>
-          <mat-card-subtitle> If you want to see the hovers, hover over the details with the mouse :) <br> And contact with me :)))</mat-card-subtitle>
-          <mat-card-content >
-            <div class="contact-details"><mat-icon >mail</mat-icon>  email :  {{data.email}} <br></div>
-            <div class="contact-details"><mat-icon> local_phone</mat-icon>  phone :  {{data.tel}} <br></div>
-            <div class="contact-details"><mat-icon>home</mat-icon>  adress :  {{data.adres}} <br></div>
-            <div class="contact-details"><a  href="https://tr.linkedin.com/in/simay-bayg%C4%B1n-08b82a19a" target="_blank"> <img id="link-button" src="../../images/linkedin.png" alt="">  </a>
-              You can reach my Linkedin account with the button<br></div>
-            <div class="contact-details"><a href="https://github.com/simaybygn" target="_blank"><img id="link-button" src="../../images/github.png" alt=""></a>
-              You can reach my Github account with the button</div>
-          </mat-card-content>
-          </mat-card>
-        </mat-grid-tile>
-        </mat-grid-list>    
-    </mat-tab>
-    <mat-tab label="EMPLOYMENT">
-      <mat-grid-list cols="2" >
-        <mat-grid-tile class="mat-grid-tile-1"
-            [colspan]=1
-            [rowspan]=1>
-            <mat-card >
-              <mat-card-title-group>
-                <mat-card-title>Ecodation Software Technologies</mat-card-title>
-                <mat-card-subtitle> <p>Short-term Software Intern</p><br><p>Istanbul/TURKEY</p><br><p>09.08.2021/29.08.2021</p></mat-card-subtitle>
-                <img mat-card-md-image src="../../images/ecodation.png" >
-              </mat-card-title-group>
-              <mat-card-content class="info-p" >
-                <p>Designed 3 different mobile applicaitons using ionic</p> <br>
-                <p> Support was provided in the development of the mobile application called "Haberci"</p>
-              </mat-card-content>
-            </mat-card>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-grid-tile-1"
-        [colspan]=1  
-        [rowspan]=1 >
-           <mat-card >
-            <mat-card-title-group>
-              <mat-card-title>Acıbadem Technology</mat-card-title>
-              <mat-card-subtitle> <p>Long-term Software Intern</p><br><p>Istanbul/TURKEY</p><br><p>04.07.2022/...</p></mat-card-subtitle>
-              <img mat-card-md-image src="../../images/acıbadem.png" >
-            </mat-card-title-group>
-          
-          <mat-card-content >
-            <mat-card-content >
-              <p>Application development with .net core learned</p> <br>
-              <p> Various screen improvements with back-end and front-end</p><br>
-              <p>Learned to use angular, c#, ajax, jquery</p>
-            </mat-card-content>
-          </mat-card-content>
-          </mat-card>
-        </mat-grid-tile>
-        </mat-grid-list>    
-    </mat-tab>
-    <mat-tab label="SKILLS">
-      <div class="list">
-        <mat-list *ngFor="let item of skillsDatas" class="list-items">
-        <mat-list-item >
-          <mat-icon class="skill-icon">grade</mat-icon>
-          {{item.skill}}
-        </mat-list-item>
-        <mat-divider></mat-divider>
-      </mat-list>
-      </div>
-      
-    </mat-tab>
-    <mat-tab label="COURSE/CERTIFICATE">
-      <mat-stepper orientation="horizontal" data="courseDatas">
-        <mat-step >
-          <ng-template matStepLabel>{{courseDatas[0].aciklama}}</ng-template>
-          <ng-template  matStepContent  >
-            <mat-grid-list  cols="2" rowHeight="1:1" class="mat-grid-content"  >
-              <mat-grid-tile ><img src="../../images/python.png" style="padding-bottom: 100px; height: 600px;  border-radius: 4px;" ></mat-grid-tile>
-              <mat-grid-tile >
-                <div style=" height: 350px;   ">
-                  <h1>{{courseDatas[0].aciklama}}</h1>
-                  <h1>{{courseDatas[0].firma}}</h1>
-                  <h1>{{courseDatas[0].tarih}}</h1>
-                </div>
-                
-              </mat-grid-tile>
-            </mat-grid-list>
-          </ng-template>
-        </mat-step>
-        <mat-step>
-          <ng-template matStepLabel>{{courseDatas[1].aciklama}}</ng-template>
-          <ng-template matStepContent>
-            <mat-grid-list cols="2" rowHeight="1:1" class="mat-grid-content">
-              <mat-grid-tile><img src="../../images/enginnersSummit.png" style="width: calc(80%);  height: calc(80%); border-radius: 4px; " ></mat-grid-tile>
-              <mat-grid-tile>
-                <div style=" height: 350px;   ">
-                  <h1>{{courseDatas[1].aciklama}}</h1>
-                  <h1>{{courseDatas[1].firma}}</h1>
-                  <h1>{{courseDatas[1].tarih}}</h1>
-                </div>
-                
-              </mat-grid-tile>
-            </mat-grid-list>
-          </ng-template>
-        </mat-step>
-        <mat-step>
-          <ng-template matStepLabel>{{courseDatas[2].aciklama}}</ng-template>
-          <mat-grid-list cols="2" rowHeight="1:1" class="mat-grid-content" >
-            <mat-grid-tile ><img src="../../images/ecodationCer.png" style="width: calc(80%);  height: calc(80%); border-radius: 4px;  " ></mat-grid-tile>
-            <mat-grid-tile>
-              <div style=" height: 350px;   ">
-                <h1>{{courseDatas[2].aciklama}}</h1>
-                <h1>{{courseDatas[2].firma}}</h1>
-                <h1>{{courseDatas[2].tarih}}</h1>
-              </div>
-              
-            </mat-grid-tile>
-          </mat-grid-list>
-        </mat-step>
-        <mat-step>
-          <ng-template matStepLabel>{{courseDatas[3].aciklama}}</ng-template>
-          <ng-template  matStepContent  >
-          <mat-grid-list cols="2" rowHeight="1:1" class="mat-grid-content" >
-            <mat-grid-tile ><img src="../../images/404.png" style="width: calc(80%);  height: calc(80%); border-radius: 4px;  padding-bottom: 200px;" ></mat-grid-tile>
-            <mat-grid-tile>
-              <div style=" height: 350px;   ">
-                <h1>{{courseDatas[3].aciklama}}</h1>
-                <h1>{{courseDatas[3].firma}}</h1>
-                <h1>{{courseDatas[3].tarih}}</h1>
-              </div>
-              
-            </mat-grid-tile>
-          </mat-grid-list>
-          </ng-template>
-        </mat-step>
-        <mat-step>
-          <ng-template matStepLabel>{{courseDatas[4].aciklama}}</ng-template>
-          <mat-grid-list cols="2" rowHeight="1:1" class="mat-grid-content">
-            <mat-grid-tile><img src="../../images/404.png" style="width: calc(80%);  height: calc(80%); border-radius: 4px; padding-bottom: 200px; " ></mat-grid-tile>
-            <mat-grid-tile>
-              <div style=" height: 350px;   ">
-                <h1>{{courseDatas[4].aciklama}}</h1>
-                <h1>{{courseDatas[4].firma}}</h1>
-                <h1>{{courseDatas[4].tarih}}</h1>
-              </div>
-              
-            </mat-grid-tile>
-          </mat-grid-list>
-        </mat-step>
-      </mat-stepper>
-    </mat-tab>
-    <mat-tab label="ACTIVITIES">
-      <div class="activities">
-        <table id="table" mat-table [dataSource]="dataSource" data class="mat-elevation-z8 w-full"  >
-        <ng-container matColumnDef="adres">
-            <th id="table-header" mat-header-cell *matHeaderCellDef>Location</th>
-            <td  mat-cell *matCellDef="let element"> {{element.adres}}
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="pozisyon">
-            <th id="table-header" mat-header-cell *matHeaderCellDef> Position</th>
-            <td mat-cell *matCellDef="let element"> {{element.pozisyon}} </td>
-        </ng-container>
-        <ng-container matColumnDef="firma">
-            <th id="table-header"  mat-header-cell *matHeaderCellDef>Club</th>
-            <td  mat-cell *matCellDef="let element"> {{element.firma}}
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="aciklama">
-            <th id="table-header" mat-header-cell *matHeaderCellDef>Description</th>
-            <td  mat-cell *matCellDef="let element"> {{element.aciklama}}
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="tarih">
-            <th id="table-header" mat-header-cell *matHeaderCellDef>Date</th>
-            <td  mat-cell *matCellDef="let element"> {{element.tarih}}
-            </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns; " class="tr-row" ></tr>
-    </table> 
-      </div>
-      
-    </mat-tab>
-    <mat-tab label="HOBBİES">
-      
-       <div style="text-align: center; padding: 20px 50px; color: rgb(170, 93, 185); ">
-          <h1><mat-icon>photo_camera</mat-icon>   PHOTOGRAPHY</h1><br>
-           <h1><mat-icon>library_music</mat-icon>   PLAYING GUITAR</h1>
-           <p style="color: black;">If you want to see the pictures in detail, you can click on them.</p>
-        
-         <div style=" padding: calc(3%) calc(9%); ">
-          <div class="gallery">
-            <a target="_blank" href="../../images/11.png" >
-             <img src="../../images/11.png"  width="600" height="400">
-            </a>
-            <div class="desc">February-2022 <br> Caddebostan</div>
-          </div>
-      
-          <div class="gallery">
-            <a target="_blank" href="../../images/3.png" >
-             <img src="../../images/3.png"  width="600" height="400">
-            </a>
-            <div class="desc">January-2022 <br> Antakya </div>
-          </div>
-      
-          <div class="gallery">
-             <a target="_blank" href="../../images/4.png">
-               <img src="../../images/4.png" width="600" height="400">
-              </a>
-             <div class="desc">December-2021 <br> Kadıköy</div>
-          </div>
-      
-          <div class="gallery">
-            <a  target="_blank" href="../../images/6.png">
-              <img src="../../images/6.png"  width="600" height="400">
-            </a>
-            <div class="desc">July-2022 <br> Beykoz</div>
-          </div>
-          <div class="gallery">
-             <a target="_blank" href="../../images/1.png" >
-                <img src="../../images/1.png"  width="600" height="400">
-             </a>
-             <div class="desc">September-2022 <br> Acıbadem</div>
-          </div>
-         </div>
-      </div>
-      
-    
-    </mat-tab>
-    <mat-tab label="EDUCATION">
-      <div class="accordion">
-        <mat-accordion class="headers-align">
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              KOCAELİ UNIVERSITY
-            </mat-panel-title>
-            <mat-panel-description>
-              Electronic and Communication Engineering
-              <div>
-                <mat-icon>school</mat-icon>
-                <mat-icon>school</mat-icon>
-              </div>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <p>I am continuing my university adventure that ı started in 2019 
-            and according to my plans,my graduation will take place in 2023 :)
-            I was interested in software from the very beginnig and ı chose my 
-            elective lessons in this direction.I took lesson in introduction to
-            computer,introduction to programming (C language),programming with C#
-            and ı will continue to choose my lessons accordingly.</p>
-        </mat-expansion-panel>
-        <mat-expansion-panel (opened)="panelOpenState = true"
-                             (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              HÜSEYİN ÖZBUĞDAY ANATOLIAN HIGH SCHOOL
-            </mat-panel-title>
-            <mat-panel-description>
-              <p></p>
-              <mat-icon>school</mat-icon>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <p>I graduated from my high school, which I started in 2015, in 2019.</p>
-        </mat-expansion-panel>
-      </mat-accordion>
-      </div>
-      
-    </mat-tab>    
-  </mat-tab-group>
+
+<!-- Main Content -->
+<main class="flex flex-col items-center p-4 pt-0 w-full">
+  <div class="bg-white w-full sticky top-20 z-20 h-8"></div>
+  <div class="bg-white w-full sticky top-28 z-20 mb-2 [box-shadow:0_4px_6px_-4px_rgba(0,0,0,0.1)]">
+     <!-- Add New Form Area -->
+  <div class="w-1/2 mx-auto p-4 border border-gray-300 rounded shadow-sm mb-6">
+  <form class="flex gap-2" (ngSubmit)="createTask()" #taskForm="ngForm">
+  <input
+    type="text"
+    name="newTask"
+    placeholder="Add new task..."
+    required
+    class="flex-1 px-3 py-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-500"
+    [(ngModel)]="newTaskDescription"
+  />
+  <button
+    type="submit"
+    class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-900 transition"
+  >
+    Add
+  </button>
+</form>
+</div>
+<!-- Filter Buttons -->
+  <div class=" w-1/2 mx-auto flex justify-center gap-4 mb-4">
+    <button
+      (click)="setFilter('all')"
+      [ngClass]="{'bg-gray-900 text-white': currentFilter === 'all', 'bg-gray-200 text-black': currentFilter !== 'all'}"
+      class="px-4 py-2 rounded transition hover:bg-gray-700 hover:text-white"
+    >
+      All
+    </button>
+    <button
+      (click)="setFilter('active')"
+      [ngClass]="{'bg-gray-900 text-white': currentFilter === 'active', 'bg-gray-200 text-black': currentFilter !== 'active'}"
+      class="px-4 py-2 rounded transition hover:bg-gray-700 hover:text-white"
+    >
+      Active
+    </button>
+    <button
+      (click)="setFilter('completed')"
+      [ngClass]="{'bg-gray-900 text-white': currentFilter === 'completed', 'bg-gray-200 text-black': currentFilter !== 'completed'}"
+      class="px-4 py-2 rounded transition hover:bg-gray-700 hover:text-white"
+    >
+      Completed
+    </button>
+  </div>
+  </div>
+  <div class="w-full  flex flex-col gap-2 pt-2">
+     <task-row class="w-1/2 mx-auto border-b border-black " *ngFor="let task of taskList" 
+    [task]="task"
+    (taskChanged)="onTaskChanged($event)"></task-row></div>
+   
+</main>
