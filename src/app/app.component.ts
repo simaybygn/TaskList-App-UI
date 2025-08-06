@@ -7,58 +7,86 @@ import { TaskListService } from 'src/app/service/task-list.service';
   templateUrl: './app.component.html'
 })
 
-export class AppComponent{
-newTaskDescription: string = '';
+export class AppComponent {
+  /** Holds the current input value for the new task description */
+  newTaskDescription: string = '';
+
+  /** Tracks the current filter applied on the task list */
   currentFilter: 'all' | 'active' | 'completed' = 'all';
-  taskList!: TaskListResponseModel[]
-  
+
+  /** List of tasks displayed on the UI */
+  taskList!: TaskListResponseModel[];
+
   constructor(protected taskListService: TaskListService) {
-     this.getAllTaskList();
-  }
-
- setFilter(filter: 'all' | 'active' | 'completed') {
-  this.currentFilter = filter;
-  if(this.currentFilter === 'all') {
+    // Load all tasks initially
     this.getAllTaskList();
-  }else{
+  }
+
+  /**
+   * Sets the task filter and reloads the list accordingly.
+   * @param filter The filter type: 'all', 'active', or 'completed'
+   */
+  setFilter(filter: 'all' | 'active' | 'completed') {
+    this.currentFilter = filter;
+
+    if (this.currentFilter === 'all') {
+      this.getAllTaskList();
+    } else {
+      // true if filter is 'completed', false if 'active'
       this.getTaskListByIsCompletedStatus(this.currentFilter === 'completed');
+    }
   }
 
-}
-
- getAllTaskList():void{
-    this.taskList=[];
-    this.taskListService.getAllTaskList().subscribe((res)=>{
+  /**
+   * Fetches all tasks from the backend and updates the task list.
+   */
+  getAllTaskList(): void {
+    this.taskList = [];
+    this.taskListService.getAllTaskList().subscribe((res) => {
       this.taskList.push(...res);
-    })
+    });
   }
 
-  getTaskListByIsCompletedStatus(isCompleted:boolean):void{
-    this.taskList=[];
-    this.taskListService.getTaskListByIsCompletedStatus(isCompleted).subscribe((res)=>{
+  /**
+   * Fetches tasks filtered by completion status and updates the task list.
+   * @param isCompleted true for completed tasks, false for active tasks
+   */
+  getTaskListByIsCompletedStatus(isCompleted: boolean): void {
+    this.taskList = [];
+    this.taskListService.getTaskListByIsCompletedStatus(isCompleted).subscribe((res) => {
       this.taskList.push(...res);
-    })
+    });
   }
 
+  /**
+   * Creates a new task with the current input description.
+   * Clears the input and reloads the task list on success.
+   */
   createTask(): void {
-     if (!this.newTaskDescription.trim()) return;  // Boşsa işlem yapma
+    // Prevent empty task creation
+    if (!this.newTaskDescription.trim()) return;
+
     this.taskListService.createTask({
       description: this.newTaskDescription,
-      isCompleted: false
-    }).subscribe((res)=>{
-      if(res)
-       {
-         this.newTaskDescription = ''; // Inputu temizle
-        this.getAllTaskList();
-       }
-    })
+      isCompleted: false,
+    }).subscribe((res) => {
+      if (res) {
+        this.newTaskDescription = ''; // Clear input field
+        this.getAllTaskList();       // Refresh the task list
+      }
+    });
   }
 
+  /**
+   * Event handler triggered when a child task component signals a change.
+   * Reloads the task list if needed.
+   * @param event Boolean flag indicating if task list should be refreshed
+   */
   onTaskChanged(event: boolean): void {
-    if(event) {
+    if (event) {
       this.getAllTaskList();
     }
-}
+  }
 }
   
    

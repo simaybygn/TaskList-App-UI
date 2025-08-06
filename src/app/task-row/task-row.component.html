@@ -1,7 +1,8 @@
-
-<!-- Düzenleme Formu -->
+<!-- Edit Form -->
 <div class="flex items-start gap-4 p-4" *ngIf="edit">
-  <form  class="flex w-full items-center gap-4">
+  <!-- Form for updating task description -->
+  <form class="flex w-full items-center gap-4">
+    <!-- Text input for task description -->
     <input
       type="text"
       [(ngModel)]="model.description"
@@ -10,13 +11,16 @@
       class="flex-1 px-3 py-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-500"
     />
 
+    <!-- Save button to update task description -->
     <button
-    (click)="updateTaskDescription()"
+      (click)="updateTaskDescription()"
       type="submit"
       class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-900 transition"
     >
       Save
     </button>
+
+    <!-- Cancel button to exit edit mode -->
     <button
       type="button"
       (click)="cancelEdit()"
@@ -27,12 +31,12 @@
   </form>
 </div>
 
-<!-- Görev Kartı Görünümü -->
+<!-- Task Card View -->
 <div class="flex items-center justify-between p-2 pr-4 pl-4" *ngIf="!edit">
-  <!-- Tamamlandı ikonu -->
+  <!-- Completion status toggle button -->
   <div class="pr-6">
     <button
-    (click)="updateTaskCompleteStatus()"
+      (click)="updateTaskCompleteStatus()"
       class="flex items-center justify-center w-8 h-8 rounded-full border-2 transition"
       [ngClass]="{
         'bg-green-600 border-green-600 text-white': task.isCompleted,
@@ -43,13 +47,14 @@
     </button>
   </div>
 
-  <!-- Görev açıklaması -->
+  <!-- Task description text -->
   <span class="flex-1">
     {{ task.description }}
   </span>
 
-  <!-- Butonlar -->
+  <!-- Action buttons: Edit and Delete -->
   <div class="flex gap-2">
+    <!-- Edit button -->
     <button
       (click)="startEdit()"
       class="flex items-center justify-center w-8 h-8 bg-white rounded-full border border-gray-400 hover:border-gray-600 transition"
@@ -57,6 +62,7 @@
       <mat-icon class="text-gray-700">edit</mat-icon>
     </button>
 
+    <!-- Delete button -->
     <button
       (click)="deleteTask()"
       class="flex items-center justify-center w-8 h-8 bg-white rounded-full border border-red-400 hover:border-red-600 transition"

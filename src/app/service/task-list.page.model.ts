@@ -1,20 +1,46 @@
-export interface TaskListResponseModel{
-    id:string;
-    description:string;
-    isCompleted:boolean;
+/**
+ * Represents a task returned from the backend.
+ */
+export interface TaskListResponseModel {
+  /** Unique identifier of the task */
+  id: string;
+
+  /** Task description or title */
+  description: string;
+
+  /** Completion status of the task */
+  isCompleted: boolean;
 }
 
+/**
+ * Data model used when creating a new task.
+ */
 export interface CreateTaskRequestModel {
-    description: string;
-    isCompleted: boolean;
+  /** Description of the new task */
+  description: string;
+
+  /** Whether the new task is completed or not */
+  isCompleted: boolean;
 }
 
-export interface UpdateTaskDescriptionRequestModel  {
-    id: string;
-    description: string;
+/**
+ * Data model used to update the description of an existing task.
+ */
+export interface UpdateTaskDescriptionRequestModel {
+  /** ID of the task to update */
+  id: string;
+
+  /** New description for the task */
+  description: string;
 }
 
-export interface UpdateTaskCompleteStatusRequestModel  {
-    id: string;
-    isCompleted: boolean;
+/**
+ * Data model used to update the completion status of an existing task.
+ */
+export interface UpdateTaskCompleteStatusRequestModel {
+  /** ID of the task to update */
+  id: string;
+
+  /** New completion status (true/false) */
+  isCompleted: boolean;
 }

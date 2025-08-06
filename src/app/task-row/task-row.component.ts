@@ -8,70 +8,104 @@ import { TaskListService } from "../service/task-list.service";
     selector: "task-row",
     templateUrl: "./task-row.component.html",
 })
+/**
+ * Component responsible for displaying and managing a single task row.
+ */
 export class TaskRowComponent implements OnChanges{
-    edit=false;
-     editedDescription = '';
-    fields!:FormlyFieldConfig[]; 
-    form= new FormGroup({});
-    @Input() task!: TaskListResponseModel; 
-    model:{description:string}= {description: ''
-    };
-    @Output() taskChanged = new EventEmitter<boolean>();
+     /** Flag to determine if the task is in edit mode */
+  edit = false;
 
-    constructor(protected taskListService:TaskListService) {}
+  /** Stores the previous description before editing */
+  editedDescription = '';
 
-ngOnChanges(changes: SimpleChanges): void {
-    const task =changes['task'];
-    if(task?.currentValue){
-        this.task = task.currentValue;
-        this.model.description = this.task.description;
+  /** Formly field configuration (not used in this version, but ready for dynamic form use) */
+  fields!: FormlyFieldConfig[];
+
+  /** Reactive form group instance */
+  form = new FormGroup({});
+
+  /** Task object passed from parent component */
+  @Input() task!: TaskListResponseModel;
+
+  /** Model used for two-way binding during editing */
+  model: { description: string } = { description: '' };
+
+  /** Event emitter to notify parent that task list needs to be refreshed */
+  @Output() taskChanged = new EventEmitter<boolean>();
+
+  constructor(protected taskListService: TaskListService) {}
+
+  /**
+   * Called when input properties change. Used to initialize model data from task.
+   * @param changes The set of changed inputs
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    const task = changes['task'];
+    if (task?.currentValue) {
+      this.task = task.currentValue;
+      this.model.description = this.task.description;
     }
-}
+  }
 
- startEdit() {
+  /**
+   * Switches the component into edit mode.
+   */
+  startEdit() {
     this.editedDescription = this.task.description;
     this.edit = true;
   }
 
+  /**
+   * Cancels editing and exits edit mode.
+   */
   cancelEdit() {
     this.edit = false;
   }
 
-  emitTaskChanged(){
+  /**
+   * Emits an event to notify the parent component that a task has changed.
+   */
+  emitTaskChanged() {
     this.taskChanged.emit(true);
   }
 
-  deleteTask(): void { 
-    this.taskListService.deleteTask(this.task.id).subscribe((res)=>{
-      if(res)
-       {
-         this.emitTaskChanged();
-       }
-    })
+  /**
+   * Sends a request to delete the current task.
+   */
+  deleteTask(): void {
+    this.taskListService.deleteTask(this.task.id).subscribe((res) => {
+      if (res) {
+        this.emitTaskChanged();
+      }
+    });
   }
 
-  updateTaskCompleteStatus(): void { 
+  /**
+   * Sends a request to toggle the task's completion status.
+   */
+  updateTaskCompleteStatus(): void {
     this.taskListService.updateTaskCompleteStatus({
-        id: this.task.id,
-        isCompleted: !this.task.isCompleted
-    }).subscribe((res)=>{
-      if(res)
-       {
-         this.emitTaskChanged();
-       }
-    })
+      id: this.task.id,
+      isCompleted: !this.task.isCompleted
+    }).subscribe((res) => {
+      if (res) {
+        this.emitTaskChanged();
+      }
+    });
   }
 
-  updateTaskDescription(): void { 
+  /**
+   * Sends a request to update the task's description.
+   */
+  updateTaskDescription(): void {
     this.taskListService.updateTaskDescription({
-        id: this.task.id,
-        description: this.model.description
-    }).subscribe((res)=>{
-      if(res)
-       {
-         this.emitTaskChanged();
-       }
-    })
+      id: this.task.id,
+      description: this.model.description
+    }).subscribe((res) => {
+      if (res) {
+        this.emitTaskChanged();
+      }
+    });
   }
 }
 
