@@ -1,3 +1,10 @@
+<!-- Toast Message -->
+<div 
+  *ngIf="taskListService.errorMessage"
+  class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded shadow-md transition-all duration-300 z-50"
+>
+  {{ taskListService.errorMessage }}
+</div>
 <!-- Header Section with sticky top and title -->
 <header class="bg-black py-4 text-center sticky top-0 z-20">
   <h1 class="text-2xl font-bold text-white">Task List</h1>
@@ -63,12 +70,22 @@
 
   <!-- Task List rendered with task-row component for each task -->
   <div class="w-full flex flex-col gap-2 pt-2">
-    <task-row
+
+<ng-container *ngIf="taskList.length > 0; else noDataTemplate">
+<task-row
       class="w-1/2 mx-auto border-b border-black"
       *ngFor="let task of taskList"
       [task]="task"
       (taskChanged)="onTaskChanged($event)"
+      (errorMessage)="onCatchErrorMessage($event)"
     ></task-row>
+</ng-container> 
+<!-- No Data Template -->
+ <ng-template #noDataTemplate>
+  <div class="w-full text-center text-gray-500 text-lg py-10">
+    No tasks to display.
+  </div>
+</ng-template>
   </div>
 
 </main>

@@ -23,7 +23,7 @@
     <!-- Cancel button to exit edit mode -->
     <button
       type="button"
-      (click)="cancelEdit()"
+      (click)="changeEditModeStatus(false)"
       class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition"
     >
       Cancel
@@ -56,7 +56,7 @@
   <div class="flex gap-2">
     <!-- Edit button -->
     <button
-      (click)="startEdit()"
+      (click)="changeEditModeStatus(true)"
       class="flex items-center justify-center w-8 h-8 bg-white rounded-full border border-gray-400 hover:border-gray-600 transition"
     >
       <mat-icon class="text-gray-700">edit</mat-icon>

@@ -42,9 +42,15 @@ export class AppComponent {
    */
   getAllTaskList(): void {
     this.taskList = [];
-    this.taskListService.getAllTaskList().subscribe((res) => {
-      this.taskList.push(...res);
-    });
+   this.taskListService.getAllTaskList().subscribe({
+  next: (res) => {
+    this.taskList.push(...res);
+  },
+  error: (err) => {
+    debugger;
+    this.taskListService.setErrorMessage(err?.message);
+  }
+});
   }
 
   /**
@@ -53,8 +59,14 @@ export class AppComponent {
    */
   getTaskListByIsCompletedStatus(isCompleted: boolean): void {
     this.taskList = [];
-    this.taskListService.getTaskListByIsCompletedStatus(isCompleted).subscribe((res) => {
-      this.taskList.push(...res);
+    
+    this.taskListService.getTaskListByIsCompletedStatus(isCompleted).subscribe({
+      next: (res) => {
+    this.taskList.push(...res);
+  },
+  error: (err) => {
+    this.taskListService.setErrorMessage(err?.message);
+  }
     });
   }
 
@@ -66,14 +78,19 @@ export class AppComponent {
     // Prevent empty task creation
     if (!this.newTaskDescription.trim()) return;
 
-    this.taskListService.createTask({
+     this.taskListService.createTask({
       description: this.newTaskDescription,
       isCompleted: false,
-    }).subscribe((res) => {
-      if (res) {
+    }).subscribe({
+      next: (res) => {
+    if (res) {
         this.newTaskDescription = ''; // Clear input field
         this.getAllTaskList();       // Refresh the task list
       }
+  },
+  error: (err) => {
+    this.taskListService.setErrorMessage(err?.message);
+  }
     });
   }
 
@@ -85,6 +102,17 @@ export class AppComponent {
   onTaskChanged(event: boolean): void {
     if (event) {
       this.getAllTaskList();
+    }
+  }
+
+  /**
+ * Event handler triggered when an error message is received from a child task component.
+ * Stores the received error message in the TaskList service.
+ * @param event Error message string
+ */
+  onCatchErrorMessage(event: string): void {
+    if (event) {
+       this.taskListService.setErrorMessage(event);
     }
   }
 }

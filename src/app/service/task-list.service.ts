@@ -13,8 +13,19 @@ import { Observable } from "rxjs";
 export class TaskListService {
     /** Base URL for the task-related API endpoints */
     baseApiUrl = 'https://localhost:5001/Task/';
+    /** Tracks the error messages */
+   errorMessage: string | null = null;
 
     constructor(private httpClient: HttpClient) {}
+
+    setErrorMessage(message: string): void {
+  this.errorMessage = message;
+
+  // clear the error message after 3 seconds
+  setTimeout(() => {
+    this.errorMessage = null;
+  }, 3000);
+}
 
   /**
    * Gets the full list of tasks from the backend.
@@ -31,7 +42,7 @@ export class TaskListService {
    */
   getTaskListByIsCompletedStatus(isCompleted: boolean): Observable<TaskListResponseModel[]> {
     return this.httpClient.get<TaskListResponseModel[]>(this.baseApiUrl + 'GetTaskListByIsCompletedStatus', {
-      params: { isCompleted: isCompleted.toString() }
+      params: { isCompleted: isCompleted }
     });
   }
 
