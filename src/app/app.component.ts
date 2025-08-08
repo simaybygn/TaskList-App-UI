@@ -104,17 +104,6 @@ export class AppComponent {
       this.getAllTaskList();
     }
   }
-
-  /**
- * Event handler triggered when an error message is received from a child task component.
- * Stores the received error message in the TaskList service.
- * @param event Error message string
- */
-  onCatchErrorMessage(event: string): void {
-    if (event) {
-       this.taskListService.setErrorMessage(event);
-    }
-  }
 }
   
    

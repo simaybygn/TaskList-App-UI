@@ -48,7 +48,10 @@
   </div>
 
   <!-- Task description text -->
-  <span class="flex-1">
+  <span
+  [matTooltip]="(task.description && task.description.length > 90) ? task.description : ''"
+  matTooltipPosition="above"
+   class="flex-1 truncate ...">
     {{ task.description }}
   </span>
 

@@ -23,9 +23,6 @@ export class TaskRowComponent implements OnChanges{
   /** Event emitter to notify parent that task list needs to be refreshed */
   @Output() taskChanged = new EventEmitter<boolean>();
 
-  /** Event emitter to emit error message */
-  @Output() errorMessage = new EventEmitter<string>();
-
   constructor(private taskListService: TaskListService) {}
 
   /**
@@ -58,13 +55,6 @@ export class TaskRowComponent implements OnChanges{
   }
 
   /**
-   * Emits an event to notify the parent component that a task has changed.
-   */
-  emitErrorMessage(errorMessage: string) {
-    this.errorMessage.emit(errorMessage);
-  }
-
-  /**
    * Sends a request to delete the current task.
    */
   deleteTask(): void {
@@ -75,7 +65,7 @@ export class TaskRowComponent implements OnChanges{
       }
     },
     error: (err) => {
-      this.emitErrorMessage(err?.message);
+      this.taskListService.setErrorMessage(err?.message);
     }
   });
   }
@@ -94,7 +84,7 @@ export class TaskRowComponent implements OnChanges{
       }
     },
     error: (err) => {
-      this.emitErrorMessage(err?.message);
+      this.taskListService.setErrorMessage(err?.message);
     }
   });
   }
@@ -113,7 +103,7 @@ export class TaskRowComponent implements OnChanges{
       }
     },
     error: (err) => {
-      this.emitErrorMessage(err?.message);
+      this.taskListService.setErrorMessage(err?.message);
     }
   });
   }

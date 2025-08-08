@@ -6,6 +6,7 @@ import { TaskRowComponent } from './task-row/task-row.component';
 import { FormsModule } from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon'
 import { HttpClientModule } from '@angular/common/http';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   
@@ -17,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
    FormsModule, 
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTooltipModule,
   ],
   exports:[
     BrowserModule,

@@ -77,7 +77,6 @@
       *ngFor="let task of taskList"
       [task]="task"
       (taskChanged)="onTaskChanged($event)"
-      (errorMessage)="onCatchErrorMessage($event)"
     ></task-row>
 </ng-container> 
 <!-- No Data Template -->
